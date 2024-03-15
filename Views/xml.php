@@ -20,6 +20,7 @@ header("Content-type: text/xml");
 
 echo "<?xml version='1.0' ?>";
 echo '<markers>';
+$ind=0;
 foreach ($lis as $key => $row) {
     echo '<marker ';
   echo 'idmapa="' . $row['idmapa'] . '" ';

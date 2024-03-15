@@ -19,14 +19,14 @@ var customLabel = {
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map-container-google-2'), {
         center: new google.maps.LatLng(4.304975148566968, -74.80338112272622),
-        zoom: 7,
+        zoom: 14,
         heading: 90,
         tilt: 45
     });
 
 
     var infoWindow = new google.maps.InfoWindow;
-    downloadUrl('http://localhost/mapaTuristico/Views/xml.php', function (data) {
+    downloadUrl('http://localhost/Guia_turisitica/Views/xml.php', function (data) {
         var xml = data.responseXML;
         var markers = xml.documentElement.getElementsByTagName('marker');
         Array.prototype.forEach.call(markers, function (markerElem) {
@@ -48,7 +48,7 @@ function initMap() {
                 '<div id="bodyContent">' +
                 '<br>' +
                 "<p><b>" + descripcion + "</p>" +
-                "<p><b>" + edad + " Años" + "</p>" +
+                "<p><b>" + "Telefono: " + edad + "</p>" +
                 "</p>" +
                 "</div>" +
                 "</div>";
@@ -91,3 +91,43 @@ function downloadUrl(url, callback) {
 }
 
 function doNothing() { }
+
+//narvar
+document.addEventListener("DOMContentLoaded", function (event) {
+
+    const showNavbar = (toggleId, navId, bodyId, headerId) => {
+        const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId)
+
+        // Validate that all variables exist
+        if (toggle && nav && bodypd && headerpd) {
+            toggle.addEventListener('click', () => {
+                // show navbar
+                nav.classList.toggle('show')
+                // change icon
+                toggle.classList.toggle('bx-x')
+                // add padding to body
+                bodypd.classList.toggle('body-pd')
+                // add padding to header
+                headerpd.classList.toggle('body-pd')
+            })
+        }
+    }
+
+    showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+    /*===== LINK ACTIVE =====*/
+    const linkColor = document.querySelectorAll('.nav_link')
+
+    function colorLink() {
+        if (linkColor) {
+            linkColor.forEach(l => l.classList.remove('active'))
+            this.classList.add('active')
+        }
+    }
+    linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+    // Your code to run since DOM is loaded and ready
+});
