@@ -16,13 +16,15 @@ var customLabel = {
     }
 };
 
-function initMap() {
-    var map = new google.maps.Map(document.getElementById('map-container-google-2'), {
-        center: new google.maps.LatLng(4.304975148566968, -74.80338112272622),
+async function initMap() {
+    const { Map } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    const map = new Map(document.getElementById("map-container-google-2"), {
+        center: { lat: 4.30497514856696, lng: -74.803381122726 },
         zoom: 14,
         heading: 90,
         tilt: 45
-    });
+      });
 
 
     var infoWindow = new google.maps.InfoWindow;
@@ -57,11 +59,16 @@ function initMap() {
             //const image = "img/soldadoss.png";
             //  var icon = customLabel[codigo] || {};
 
+            const priceTag = document.createElement("div");
 
+            priceTag.className = "price-tag";
+            priceTag.textContent = "$2.5M";
 
             var marker = new google.maps.Marker({
                 map: map,
                 position: point,
+                title: persona,
+                content: priceTag,
                 //icon: image
             });
             marker.addListener('click', function () {
